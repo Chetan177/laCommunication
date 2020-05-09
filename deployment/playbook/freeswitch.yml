@@ -1,0 +1,53 @@
+---
+- hosts: freeswitch_machine
+  vars:
+    freeswitch_sources_path: /usr/local/src/freeswitch/
+    freeswitch_path: /usr/local/freeswitch/
+    freeswitch_version: v1.10.2
+    freeswitch_configure_command: configure
+  sudo: yes
+  tasks:
+    - name: update & upgrade
+      apt: update_cache=yes 
+      
+    - name:  install build dependencies
+      apt: 
+        state: latest
+        name: ['curl', 'gnupg2', 'wget', 'git', 'cmake', 'automake', 'autoconf', 'libavformat-dev', 'liblua5.1-0-dev',
+            'libtool', 'build-essential', 'pkg-config', 'ca-certificates', 'libssl-dev', 'lsb-release', 'systemd-coredump', 'liblz4-tool',
+            'libz-dev', 'libjpeg-dev', 'libsqlite3-dev', 'libcurl4-openssl-dev', 'libpcre3-dev', 'libswscale-dev',
+            'libspeex-dev', 'libspeexdsp-dev', 'libedit-dev', 'libtiff-dev', 'yasm', 'haveged', 'libldns-dev',
+            'libopus-dev', 'libopusfile-dev', 'libsndfile-dev', 'libshout3-dev', 'libmpg123-dev', 'libmp3lame-dev']   
+
+    - name: install git
+      apt:
+        name: git
+        state: latest  
+
+    - name: git configure
+      shell: git config --global pull.rebase true    
+
+    - name: check out freeswitch code
+      git:  repo=https://github.com/Chetan177/freeswitch.git
+            dest={{freeswitch_sources_path}}
+            version={{freeswitch_version}}
+            depth=50
+            accept_hostkey=yes
+            force=yes
+
+    - name: Freeswitch configuration 
+      shell: ./{{freeswitch_configure_command}}
+      args:
+        chdir: "{{freeswitch_sources_path}}"
+        warn: False
+
+    - name: FreeSwitch make
+      shell: make 
+      args:
+        chdir: "{{freeswitch_sources_path}}"
+    
+    - name: FreeSwitch install
+      shell: make install 
+      args:
+        chdir: "{{freeswitch_sources_path}}"
+    
