@@ -14,7 +14,7 @@ type Details struct {
 
 const (
 	database   = "lacommunicationdb"
-	connString = "root:@tcp(127.0.0.1:3306)/"
+	connString = "chetan:chetan@tcp(127.0.0.1:3306)/"
 	table      = "details"
 )
 

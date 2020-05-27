@@ -52,7 +52,7 @@ func (r *Rest) handleLogin(c echo.Context) error {
 	_, userPass, err := db.GetData(loginDetails.Email)
 	if err != nil {
 		if strings.ContainsAny(err.Error(), "sql: no rows in result set") {
-			log.Println("User not found ", loginDetails.Email)
+			log.Println("User not found ", loginDetails.Email, err)
 			return c.JSON(http.StatusForbidden, response{
 				Message: "user not found",
 				Status:  403,
@@ -94,7 +94,7 @@ func (r *Rest) handleSignup(c echo.Context) error {
 	err = db.InsertData(loginDetails.Email, loginDetails.Password)
 	if err != nil {
 		if strings.ContainsAny(err.Error(), "Duplicate entry") {
-			log.Println("User exists ", loginDetails.Email)
+			log.Println("User exists ", loginDetails.Email, err)
 			return c.JSON(http.StatusForbidden, response{
 				Message: "user exists",
 				Status:  403,

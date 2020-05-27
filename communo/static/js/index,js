@@ -77,6 +77,9 @@ function login() {
             case 500:
                 showError("Internal Server Error",'error');
                 break;
+            case 400:
+                showError("Incorrect username or password","error");
+                break;
             default:
                 showError("Unknown Error",'error');
                 break;
