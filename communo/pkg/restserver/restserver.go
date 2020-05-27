@@ -125,6 +125,7 @@ func (r *Rest) handleAPI(c echo.Context) error {
 			Status:  400,
 		})
 	}
+	log.Println("Making call from :", req.From, " to: ", req.To)
 	fs.MakeCall(req.To,req.From)
 
 	return c.JSON(http.StatusOK, response{

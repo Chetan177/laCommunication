@@ -1,0 +1,172 @@
+function validateEmail(emailField, errorField) {
+
+    let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if (reg.test(emailField.value) == false) {
+        let x = document.getElementById(errorField);
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+        return false;
+    }
+    return true;
+}
+
+function validatePassword(passField, errorField) {
+
+    let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if (reg.test(passField.value) == false) {
+        let x = document.getElementById(errorField);
+
+        x.className = "show";
+
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+        return false;
+    }
+    return true;
+}
+
+function confirmPassword(pass2, errorField) {
+
+    let pass1 = document.getElementById("signup-password")
+    if (pass1.value != pass2.value) {
+        let x = document.getElementById(errorField);
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+        return false;
+    }
+    return true;
+}
+
+function showError(errorMsg,errorLocation) {
+    let x = document.getElementById(errorLocation);
+    x.innerHTML = errorMsg
+    x.className = "show";
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 3000);
+}
+
+function login() {
+
+    let email = document.getElementById('login-email');
+    let pass = document.getElementById("login-password");
+
+    validateEmail(email, "error");
+    validatePassword(pass, "error");
+    let data = {
+        "email": email.value.toString(),
+        "password": pass.value.toString()
+    }
+    $.post("/login/", data, function (data, status) {
+        console.log(data.message, status);
+                document.location.href = '/api.html';
+    }).fail(function(response) {
+        console.log('Login Error: ' + response.responseText);
+        switch (response.status) {
+            case 403:
+                showError("User Not Registered",'error');
+                break;
+            case 500:
+                showError("Internal Server Error",'error');
+                break;
+            default:
+                showError("Unknown Error",'error');
+                break;
+        }
+    });
+
+}
+
+function signup() {
+    let validResult
+    let email = document.getElementById("signup-email");
+    let pass = document.getElementById("signup-password");
+    let confirmPass = document.getElementById("signup-password-confirm");
+
+    validResult = validateEmail(email, 'emailError');
+    if (validResult == false) {
+        return false
+    }
+    validResult = validatePassword(pass, 'passError');
+    if (validResult == false) {
+        return false
+    }
+    validResult = confirmPassword(confirmPass, 'passConfirm');
+    if (validResult == false) {
+        return false
+    }
+
+    let data = {
+        "email": email.value.toString(),
+        "password": pass.value.toString()
+    }
+
+    $.post("/signup/", data, function (data, status) {
+        console.log(data.message, status);
+        document.location.href = '/login.html';
+    }).fail(function(response) {
+        console.log('Signup Error: ' + response.responseText);
+        switch (response.status) {
+            case 403:
+                showError("User Already Registered",'emailError');
+                break;
+            case 500:
+                showError("Internal Server Error",'emailError');
+                break;
+            default:
+                showError("Unknown Error",'emailError');
+                break;
+        }
+    });
+}
+
+
+function makeCall() {
+    let validResult
+    let to = document.getElementById('to')
+    let from = document.getElementById('from')
+
+    let data = {
+        "to": to.value.toString(),
+        "from": from.value.toString()
+    }
+    validResult=validateNumber(to,'error')
+    if (validResult == false) {
+        return false
+    }
+    validResult=validateNumber(to,'error')
+    if (validResult == false) {
+        return false
+    }
+
+    $.post("/api/", data, function (data, status) {
+        console.log(data.message, status);
+    }).fail(function(response) {
+        console.log('API Error: ' + response.responseText);
+        showError("Unknown Error",'error');
+
+    });
+
+}
+
+function validateNumber(num, errorField) {
+
+    let reg = /^\d+$/;
+    if (reg.test(num.value) == false) {
+        let x = document.getElementById(errorField);
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+        return false;
+    }
+    return true;
+}
