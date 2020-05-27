@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/index,js"></script>
 </head>
 
 <body>
@@ -21,8 +22,8 @@
             </div>
 
             <div class="panel row">
-                <div class="panel-inactive column"><p>Login</p></div>
-                <div class="panel-active column"><p>Signup</p></div>
+                <div class="panel-inactive column"><p onclick="document.location.href='/login.html'">Login</p></div>
+                <div class="panel-active column"><p onclick="document.location.href='/signup.html'">Signup</p></div>
             </div>
             <div class="signup-txt">
                 <p>SIGN UP </p>
@@ -33,14 +34,18 @@
             <div class="signup-form-class">
                 <form id="signip-form">
                     <input class="input-box" id="signup-email" type="text" placeholder="you@email.com">
-                    <input class="input-box" id="signup-password" type="password" placeholder="password">
+                    <input class="input-box" id="signup-password" type="password" placeholder="password" >
                     <input class="input-box" id="signup-password-confirm" type="password" placeholder="confirm password">
                 </form>
             </div>
-            <div id="signup-in-button" class="button" role="button">
+            <div id="signup-in-button" class="button" role="button" onclick="signup()">
                 <p class="signup-button-text">SIGN UP</p>
             </div>
         </div>
+
+        <div id="emailError">Please Enter Valid Email Address</div>
+        <div id="passError">Password must contain digits, alphabets and special characters</div>
+        <div id="passConfirm">Password doest not match</div>
     </section>
 
 </body>
