@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/index,js"></script>
 </head>
 
 <body>
@@ -18,16 +19,16 @@
             </div>
             <div class="api-form-class">
                 <form id="api-form">
-                    <input class="input-box-api" id="to" type="text" placeholder="To">
-                    <input class="input-box-api" id="from" type="text" placeholder="From">
+                    <input class="input-box-api" id="to" type="number" placeholder="To">
+                    <input class="input-box-api" id="from" type="number" placeholder="From">
                 </form>
             </div>
-            <div id="call-button" class="button-call" role="button">
+            <div id="call-button" class="button-call" role="button" onclick="makeCall();">
                 <p class="button-call-text">Call</p>
             </div>
         </div>
     </section>
-
+    <div id="error">Number Cant be empty</div>
 </body>
 
 </html>

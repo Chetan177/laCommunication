@@ -3,8 +3,10 @@
 
 ## Techonologies:
 
-###     Freeswitch 
-###     AWS
-###     Ansible
-###     Golang
-###     ElasticSearch (monitoring)
+    Freeswitch 
+    AWS
+    Ansible
+    Golang
+    Docker
+    Swagger API Documentaion
+    

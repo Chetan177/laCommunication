@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/index,js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -23,8 +24,8 @@
             </div>
 
             <div class="panel row">
-                <div class="panel-active column"><p>Login</p></div>
-                <div class="panel-inactive column"><p>Signup</p></div>
+                <div class="panel-active column"><p onclick="document.location.href='/login.html'">Login</p></div>
+                <div class="panel-inactive column"><p onclick="document.location.href='/signup.html'">Signup</p></div>
             </div>
             <div class="signin-txt">
                 <p>SIGN IN </p>
@@ -34,17 +35,18 @@
             </div>
             <div class="login-form-class">
                 <form id="login-form">
-                    <input class="input-box" id="login-email" type="text" placeholder="you@email.com">
-                    <input class="input-box" id="login-password" type="password" placeholder="********">
+                    <input class="input-box" id="login-email" type="text" placeholder="you@email.com" >
+                    <input class="input-box" id="login-password" type="password" placeholder="********" >
                 </form>
             </div>
-            <div id="reset-password"class="forget-password">
+            <div id="reset-password" class="forget-password">
                 <p>Forget Password ?</p>
             </div>
-            <div id="sign-in-button" class="button" role="button">
+            <div id="sign-in-button" class="button" role="button" onclick="login();">
                 <p class="button-text">SIGN IN</p>
             </div>
         </div>
+        <div id="error">Please Enter Valid Email or Pass</div>
     </section>
 
 </body>
